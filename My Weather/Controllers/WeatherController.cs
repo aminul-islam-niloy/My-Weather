@@ -32,11 +32,11 @@ namespace My_Weather.Controllers
         }
 
         [HttpGet("current")]
-        public async Task<ActionResult<WeatherForecast>> GetCurrentWeather()
+        public async Task<ActionResult<WeatherForecast>> GetCurrentWeather(string city)
         {
             try
             {
-                var weatherForecast = await _weatherService.GetWeatherForecast();
+                var weatherForecast = await _weatherService.GetWeatherForecast(city);
                 return Ok(weatherForecast);
             }
             catch (Exception ex)
