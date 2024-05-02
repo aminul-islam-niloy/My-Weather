@@ -19,7 +19,7 @@ namespace My_Weather.Services
             _settings = settings.Value;
         }
 
-        public async Task<WeatherForecast> GetWeatherForecast(string city = null)
+        public async Task<WeatherForecast> GetWeatherForecast(string city)
         {
             if (string.IsNullOrEmpty(city))
                 city = _settings.DefaultCity;
@@ -28,7 +28,7 @@ namespace My_Weather.Services
             {
                 var url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={_settings.ApiKey}&units=metric";
 
-                //var url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=b3b83126babd19c8b0d8ba107d720355&units=metric";
+               
                 var response = await _httpClient.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
