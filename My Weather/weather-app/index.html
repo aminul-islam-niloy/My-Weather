@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+    <h1>Weather Forecast</h1>
+    <div id="weatherInfo"></div>
+
+    <script>
+        async function fetchWeather(city) {
+            try {
+                const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=Dhaka&appid=b3b83126babd19c8b0d8ba107d720355&units=metric"`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                throw error;
+            }
+        }
+
+        async function displayWeather() {
+            const defaultCity = 'Dhaka'; 
+            const weatherInfo = document.getElementById('weatherInfo');
+
+            try {
+                const weatherData = await fetchWeather(defaultCity);
+
+                // Display weather information
+                weatherInfo.innerHTML = `
+                    <p>City: ${weatherData.cityName}</p>
+                    <p>Temperature: ${weatherData.temperatureC}°C / ${weatherData.temperatureF}°F</p>
+                    <p>Summary: ${weatherData.summary}</p>
+                    <p>Air Condition: ${weatherData.airCondition}</p>
+                    <p>Feels Like:  ${weatherData.feelsLikeF}°F</p>
+                    <p>Sunrise: ${new Date(weatherData.sunrise).toLocaleTimeString()}</p>
+                `;
+            } catch (error) {
+                weatherInfo.innerHTML = `<p>Error fetching weather data: ${error.message}</p>`;
+            }
+        }
+
+        // Call the displayWeather function when the page loads
+        window.onload = displayWeather;
+    </script>
+</body>
+</html>
