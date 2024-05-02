@@ -1,6 +1,4 @@
-Sure, here's a basic README file for your My Weather API project:
 
----
 
 # My Weather API
 
